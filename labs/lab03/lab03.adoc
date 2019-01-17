@@ -560,7 +560,7 @@ CN-Workshop/labs/my_work/cloud-native-spring $ ./mvnw package
 CN-Workshop/labs/my_work/cloud-native-spring $ cf push
 ----
 
-. Find the URL created for your app in the health status report and browse to your app.  Also view your application details in the Apps Manager UI:
+. Find the URL created for your app in the health status report and browse to your app.  Also view your application details in the Apps Manager UI: https://apps.dev.sys.pcfonemagnify.com
 +
 image::images/appsman.jpg[]
 

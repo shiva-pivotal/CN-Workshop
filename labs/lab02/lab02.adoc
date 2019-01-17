@@ -30,6 +30,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -39,7 +40,7 @@ public class City implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false)
@@ -316,7 +317,7 @@ Page<City> findByPostalCode(@Param("q") String postalCode, Pageable pageable);
 CN-Workshop/labs/my_work/cloud-native-spring $ ./mvnw spring-boot:run
 ----
 
-. Access the application again. Notice that hypermedia for a new `search` endpoint has appeared.
+. Access the application again http://localhost:8080/cities. Notice that hypermedia for a new `search` endpoint has appeared.
 +
 [source,bash]
 ----
@@ -424,7 +425,7 @@ CN-Workshop/labs/my_work/cloud-native-spring $ ./mvnw package
 applications:
 - name: cloud-native-spring
   random-route: true
-  memory: 768M
+  memory: 1G
   path: target/cloud-native-spring-0.0.1-SNAPSHOT.jar
   timeout: 180 # to give time for the data to import
   env:
@@ -453,9 +454,9 @@ buildpack: java_buildpack
 #0   running   2017-11-02 06:54:35 AM   0.0%   157.3M of 768M   158.7M of 1G
 ----
 
-. Access the application at the random route provided by CF:
+. Access the application at the random route provided by CF or you can do *cf apps* find out the url for corresponding app:
 +
 [source,bash]
 ----
-$ curl -i https://cloud-native-spring-<random>.cfapps.io/cities
+$ curl -i https://cloud-native-spring-<random>.cfapps.io/cities or open it in your browser to test it out.
 ----

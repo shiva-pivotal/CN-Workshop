@@ -1,0 +1,74 @@
+= Lab 0 - Setup
+
+[abstract]
+--
+In this lab we will setup the environment
+--
+
+Estimated Time: 15 minutes
+
+== Prerequisites
+- [Cloud Foundry CLI](https://console.run.pivotal.io/tools)
+- [Git Client](https://git-scm.com/downloads)
+- http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java JDK 8]
+- Your favorite IDE or editor (e.g., http://www.eclipse.org[Eclipse] or https://spring.io/tools[Spring Tool Suite], https://www.jetbrains.com/idea[IntelliJ IDEA], https://netbeans.org[NetBeans], Visual Studio, etc)
+
+**Verify the Prerequisites installation**
+``` 
+$ cf --version
+$ git --version 
+$ java --version
+```
+
+A few details you'll need to complete the exercises:
+
+  * **API URL for PAS:** `https://api.dev.sys.pcfonemagnify.com` 
+  * **API URL for PAS Apps Manager:** [https://apps.dev.sys.pcfonemagnify.com](https://apps.dev.sys.pcfonemagnify.com)
+  * **Environment Credentials:** [Google Sheets](https://docs.google.com/spreadsheets/d/1e9knXV2E80-Ef8tXqpXehnRhWRNrEnTlSfJnbaZ6xkw/edit#gid=0)
+
+== Clone repo
+
+To follow along with the lab exercises, please clone this git repo on your local machine
+
+[source,bash]
+----
+$ git clone https://github.com/shiva-pivotal/CN-Workshop.git
+----
+
+== IDE Setup and tips
+
+TIP: This section shares some optional tips for configuring your IDE for an optimal experience during the workshop!
+
+=== Eclipse / Spring Tool Suite
+
+Exclude `java.awt.*` from auto-complete suggestions::
+`Preferences -> Java -> Appearance -> Type Filters -> Add... -> java.awt.*`
++
+This way when you need to auto import something with `List` you don’t get the dialog box that asks if you want `java.awt.List` when you really want `java.util.List`
+
+Configure Maven Auto Update::
+`Preferences -> Maven -> {checkedbox} Automatically update Maven projects configuration`
++
+Allows you to change a `pom.xml` and have the eclipse classpath automatically change without having to trigger the change manually.
+
+Open pom.xml in XML view::
+`Preferences -> Maven -> User Interface -> {checkedbox} Open XML Page in the POM editor by default`
++
+This will get you straight to the XML when you first open your `pom.xml`
+
+Show line numbers::
+`Preferences -> General -> Editors -> Text Editors -> Show Line Numbers`
++
+Very useful when collaborating and you need to explicitly state which line number you are referring to.
+
+Automatically refresh resources changed outside of Eclipse::
+`Preferences -> General -> Workspace -> Refresh using native hooks or polling`
++
+This enables Eclipse to recognize changes to files that have been modified outside of Eclipse. Pretty handy.
+
+
+Close all views you don’t need::
+Give yourself more space to view/write code by closing any views in the perspective that you don’t use, such as: Outline, Spring Explorer, and Servers
+
+Boot Dashboard::
+Use it, it’s awesome :)

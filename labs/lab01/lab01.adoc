@@ -5,9 +5,9 @@ ifdef::env-github[]
 :caution-caption: :fire:
 :warning-caption: :warning:
 endif::[]
-:spring-boot-version: 1.5.11
+:spring-boot-version: 1.5.19
 
-= Building a Spring Boot Application
+= From Zero to Microservice in Five Minutes
 
 == Overview
 
@@ -195,7 +195,7 @@ Add application metadata, using a text editor (of choice)
 applications:
 - name: cloud-native-spring
   random-route: true
-  memory: 768M
+  memory: 1G
   path: target/cloud-native-spring-0.0.1-SNAPSHOT.jar
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
