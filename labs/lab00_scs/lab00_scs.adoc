@@ -22,8 +22,8 @@ $ java --version
 
 A few details you'll need to complete the exercises:
 
-  * **API URL for PAS:** `https://api.dev.sys.pcfonemagnify.com` 
-  * **API URL for PAS Apps Manager:** [https://apps.dev.sys.pcfonemagnify.com](https://apps.dev.sys.pcfonemagnify.com)
+  * **API URL for PAS:** `https://api.run.haas-81.pez.pivotal.io` 
+  * **API URL for PAS Apps Manager:** [https://apps.run.haas-81.pez.pivotal.io](https://apps.run.haas-81.pez.pivotal.io)
   * **Environment Credentials:** [Google Sheets](https://docs.google.com/spreadsheets/d/1e9knXV2E80-Ef8tXqpXehnRhWRNrEnTlSfJnbaZ6xkw/edit#gid=0)
 
 == Clone repo

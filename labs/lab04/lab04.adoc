@@ -211,7 +211,7 @@ Using the Cloud Foundry CLI execute the following update service command:
 +
 [source,bash]
 ----
-CN-Workshop/labs/my_work/cloud-native-spring $ cf update-service config-server -c '{"git": { "uri": "https://github.com/Pivotal-Field-Engineering/CN-Workshop", "label": "config" } }'
+CN-Workshop/labs/my_work/cloud-native-spring $ cf update-service config-server -c '{"git": { "uri": "https://github.com/shiva-pivotal/app-config.git", "label": "master" } }'
 ----
 
 . Refresh you Config Server management page and you will see the following message.  Wait until the screen refreshes and the service is reintialized:
@@ -250,7 +250,7 @@ applications:
 +
 [source,bash]
 ----
-CN-Workshop/labs/my_work/cloud-native-spring $ ./mvnw package
+CN-Workshop/labs/my_work/cloud-native-spring $ ./mvnw clean install
 ----
 
 . Push application into Cloud Foundry
@@ -264,7 +264,8 @@ CN-Workshop/labs/my_work/cloud-native-spring $ cf push
 +
 [source,bash]
 ----
-CN-Workshop/labs/my_work/cloud-native-spring $ cf set-env cloud-native-spring TRUST_CERTS <YOUR_PCF_API_ENDPOINT>
+CN-Workshop/labs/my_work/cloud-native-spring $ cf set-env cloud-native-spring TRUST_CERTS https://api.run.haas-81.pez.pivotal.io
+CN-Workshop/labs/my_work/cloud-native-spring $ cf set-env cloud-native-spring CF_TARGET https://api.run.haas-81.pez.pivotal.io
 CN-Workshop/labs/my_work/cloud-native-spring $ cf restage cloud-native-spring
 ----
 
@@ -273,11 +274,64 @@ CN-Workshop/labs/my_work/cloud-native-spring $ cf restage cloud-native-spring
 
 . What just happened??  A Spring component within the Spring Cloud Starter Config Client module called a _service connector_ automatically detected that there was a Cloud Config service bound into the application.  The service connector configured the application automatically to connect to the cloud `config-server` and download the configuration and wire it into the application
 
-. If you navigate to the GIT repo we specified for our configuration, https://github.com/Pivotal-Field-Engineering/CN-Workshop/tree/config, you'll see a file named `cloud-native-spring.yml`.  This filename is the same as our `spring.application.name` value for our Spring Boot application.  The configuration is read from this file, in our case the following property:
+. If you navigate to the GIT repo we specified for our configuration, https://github.com/shiva-pivotal/app-config.git, you'll see a file named `cloud-native-spring.yml`.  This filename is the same as our `spring.application.name` value for our Spring Boot application.  The configuration is read from this file, in our case the following property:
 +
 [source,yaml]
 ----
 greeting: Bonjour
 ----
+
+== Dynamically refreshing Git repo values in application
+
+. Let's update the value of greeting in the git repo and check if that is dynamically updated in our application. As can be seen below, I have updated the git repo value of greeting to 'Hi Refreshed!':
+
++
+image::images/config-git-refreshed.png[]
+
+. Refresh your application page in the browser to check if the updated value is retrieved from git by Spring Config.
++
+image::images/config-app-not-refreshed.png[]
+
+. As can be seen the value was not updated. Why not?? Because the Config value were retrieved at startup and stored in the Spring bean. There was no way for Spring to know that the value have been refreshed in the remote Git repo. 
+
+ To refresh the values without starting up the app, we need to utilize a Spring Actuator endpoint named /refresh and also add an annotation to our Controller class so that the value can be refreshed dynamically. 
+
+. Add @RefreshScope annotation to the CloudNativeSpringApplication.java:
+
++
+[source, java]
+-----
+@RefreshScope
+public class CloudNativeSpringApplication {
+
+-----
+. Run Maven task *clean* and *install*. Go to the command prompt and do  *cf push*. After the application is pushed, visit the application in the browser. It will show the updated *greeting* value - we will dynamically change and refresh it shortly.
+
++
+image::images/config-app-value-after-restart.png[]
+
+. Now, lets update the Git repo value to 'Hi Refreshed Again!' :
++
+image::images/config-app-value-refreshed-again.png[]
+
+. Go to the command prompt and run curl command (Download cURL if not already installed on your machine: https://curl.haxx.se/download.html) or you can run this command in PostMan (Download link: https://www.getpostman.com) too. Output is shown for both methods:
++
+cURL:
++
+[source, bash]
+-----
+$ curl -X POST <APP_URL>/refresh
+-----
++
+Postman (notice the Status: 200 OK):
++
+image::images/config-refresh-with-postman.png[]
+
+. Now go ahead and refresh your application page in the browser and it should show you the updated git value (without restarting your application):
++
+image::images/config-success-with-refresh.png[]
+
+. Congrats! You have successfully refreshed your git repo values dynamically! 
+
 
 . Next we'll learn how to register our service with a Service Registry and load balance requests using Spring Cloud components.

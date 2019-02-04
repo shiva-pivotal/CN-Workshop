@@ -171,7 +171,7 @@ image::images/dash.jpg[]
 +
 [source,bash]
 ----
-CN-Workshop/labs/my_work/cloud-native-spring-ui $ ./mvnw package
+CN-Workshop/labs/my_work/cloud-native-spring-ui $ ./mvnw clean install
 ----
 
 . Push application to Cloud Foundry

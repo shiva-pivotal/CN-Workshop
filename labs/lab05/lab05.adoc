@@ -424,7 +424,7 @@ security:
 +
 [source,bash]
 ----
-CN-Workshop/labs/my_work/cloud-native-spring-ui $ ./mvnw package
+CN-Workshop/labs/my_work/cloud-native-spring-ui $ ./mvnw clean install
 ----
 
 . Create a Cloud Foundry application manifest:

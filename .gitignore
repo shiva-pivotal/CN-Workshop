@@ -176,3 +176,5 @@ logs/
 ##########
 .dockerize
 
+# Cloud Native Spring
+labs/my_work/
